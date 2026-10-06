@@ -3,7 +3,6 @@
 > An all-in-one anime command center, multi-platform search router, and customizable browser dashboard.
 
 [![Live Demo](https://img.shields.io/badge/Demo-Live%20Site-22c55e?style=for-the-badge&logo=googlechrome&logoColor=white)](https://kuro2607.github.io/hub/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](LICENSE)
 [![Platform](https://img.shields.io/badge/Host-GitHub%20Pages-black?style=for-the-badge&logo=github)](https://pages.github.com/)
 
 ---
@@ -36,12 +35,3 @@ It is designed to serve as a lightweight, lightning-fast browser homepage or dai
 - **KuroWatch Tracker:** [https://kuro2607.github.io/kuro/](https://kuro2607.github.io/kuro/)
 
 ---
-
-## 🛠️ Local Development & Setup
-
-Since KuroHub is fully self-contained in a single lightweight file, setting it up takes under 30 seconds:
-
-1. **Clone the repository:**
-   ```bash
-   git clone [https://github.com/kuro2607/hub.git](https://github.com/kuro2607/hub.git)
-   cd hub
