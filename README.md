@@ -1,10 +1,6 @@
 # 🍀 KuroHub
 
 > An all-in-one anime command center, multi-platform search router, and customizable browser dashboard.
-
-[![Live Demo](https://img.shields.io/badge/Demo-Live%20Site-22c55e?style=for-the-badge&logo=googlechrome&logoColor=white)](https://kuro2607.github.io/hub/)
-[![Platform](https://img.shields.io/badge/Host-GitHub%20Pages-black?style=for-the-badge&logo=github)](https://pages.github.com/)
-
 ---
 
 ## 🌟 Overview
