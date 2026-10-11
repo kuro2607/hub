@@ -1,1001 +1,318 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KuroHub - Anime Launchpad for KuroWatch, KuroNews and KuroManga</title>
-  <meta name="description" content="One hub to rule them all: search, stream legally, track on KuroWatch, read manga, check discussions, and manage your anime internet links in one place.">
-  <link rel="canonical" href="https://kuro2607.github.io/hub/">
-  <meta name="robots" content="index, follow">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KuroTracker - Find anime, track it, watch it legally</title>
+<meta name="description" content="KuroTracker is a free anime discovery and progress tracking site. Search anime, check broadcast schedules, track episodes, and see where each show streams legally.">
+<link rel="canonical" href="https://kuro2607.github.io/kuro.watch/">
+<meta name="robots" content="index, follow">
 
-  <!-- ================= STEP 1: FAVICON & LOGO ================= -->
-  <!-- Standard Favicons (Ensure favicon.png is at least 48x48px or 192x192px) -->
-  <link rel="icon" type="image/x-icon" href="https://kuro2607.github.io/hub/favicon.ico">
-  <link rel="icon" type="image/png" sizes="32x32" href="https://kuro2607.github.io/hub/favicon.png">
-  <link rel="icon" type="image/png" sizes="192x192" href="https://kuro2607.github.io/hub/favicon.png">
-  <link rel="apple-touch-icon" href="https://kuro2607.github.io/hub/favicon.png">
+<!-- ================= STEP 1: FAVICON & SEARCH LOGO ================= -->
+<link rel="icon" type="image/x-icon" href="https://kuro2607.github.io/kuro.watch/favicon.ico">
+<link rel="icon" type="image/png" sizes="192x192" href="https://kuro2607.github.io/kuro.watch/favicon.png">
+<link rel="apple-touch-icon" href="https://kuro2607.github.io/kuro.watch/favicon.png">
 
-  <!-- ================= STEP 2: GOOGLE SITE NAME & IDENTITY ================= -->
-  <!-- Open Graph Site Name & Brand Meta -->
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="KuroHub">
-  <meta property="og:title" content="KuroHub - Anime launchpad: search once, open everywhere">
-  <meta property="og:description" content="Search any anime once and launch it on official streaming sites, trackers, communities and the Kuro network: KuroWatch, KuroNews and KuroManga.">
-  <meta property="og:url" content="https://kuro2607.github.io/hub/">
-  <meta property="og:image" content="https://kuro2607.github.io/hub/favicon.png">
-  <meta name="twitter:card" content="summary">
+<!-- ================= STEP 2: OPEN GRAPH & SITE NAME ================= -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="KuroTracker">
+<meta property="og:title" content="KuroTracker - Find anime, track it, watch it legally">
+<meta property="og:description" content="Search anime, see where it streams legally, check the weekly schedule, and keep a personal anime watchlist tracker.">
+<meta property="og:url" content="https://kuro2607.github.io/kuro.watch/">
+<meta property="og:image" content="https://kuro2607.github.io/kuro.watch/favicon.png">
+<meta name="twitter:card" content="summary">
 
-  <!-- Structured Data (JSON-LD) for Google Search Site Name & Logo -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "KuroHub",
-    "alternateName": ["Kuro Hub", "Kuro Anime Hub"],
-    "url": "https://kuro2607.github.io/hub/",
-    "logo": "https://kuro2607.github.io/hub/favicon.png",
-    "description": "Anime launchpad that connects KuroWatch, KuroNews and KuroManga with official streaming sites, trackers and communities."
-  }
-  </script>
+<!-- ================= STEP 3: GOOGLE STRUCTURED DATA (JSON-LD) ================= -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "KuroTracker",
+  "alternateName": ["Kuro Tracker", "Kuro Anime Tracker"],
+  "url": "https://kuro2607.github.io/kuro.watch/",
+  "logo": "https://kuro2607.github.io/kuro.watch/favicon.png",
+  "description": "Anime discovery, broadcast schedule and watchlist tracker."
+}
+</script>
 
-  <!-- Tailwind & Fonts -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-  <style>
-    :root {
-      --bg: #050805;
-      --panel: #0d130d;
-      --panel-hover: #121a12;
-      --line: #1d2a1d;
-      --line-bright: #283a28;
-      --g: #22c55e;
-      --g-glow: rgba(34, 197, 94, 0.35);
-      --bone: #ecf3e8;
-      --muted: #8fa38a;
-    }
-    body {
-      background-color: var(--bg);
-      color: var(--bone);
-      font-family: 'Figtree', system-ui, -apple-system, sans-serif;
-    }
-    h1, h2, h3, .brand {
-      font-family: 'Bricolage Grotesque', system-ui, sans-serif;
-    }
-    .panel {
-      background-color: var(--panel);
-      border: 1px solid var(--line);
-    }
-    .panel:hover {
-      border-color: var(--line-bright);
-    }
-    .glow-hover:hover {
-      box-shadow: 0 0 25px -4px var(--g-glow);
-    }
-    .title-glow {
-      text-shadow: 0 0 24px rgba(34, 197, 94, 0.45);
-    }
-    .chip {
-      white-space: nowrap;
-      transition: all 0.2s ease;
-      border: 1px solid var(--line);
-      background-color: rgba(13, 19, 13, 0.7);
-    }
-    .chip:hover {
-      border-color: var(--g);
-      color: #fff;
-    }
-    .chip.active {
-      background-color: var(--g);
-      color: #031205;
-      border-color: var(--g);
-      font-weight: 700;
-    }
-    .custom-scrollbar::-webkit-scrollbar {
-      height: 6px;
-      width: 6px;
-    }
-    .custom-scrollbar::-webkit-scrollbar-track {
-      background: #090e09;
-    }
-    .custom-scrollbar::-webkit-scrollbar-thumb {
-      background: #1d2a1d;
-      border-radius: 4px;
-    }
-    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-      background: var(--g);
-    }
-    .line-clamp-2 {
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-  </style>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Figtree:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#050805;--panel:#0d130d;--line:#1d2a1d;--g:#22c55e;--bone:#ecf3e8}
+body{background:var(--bg);color:var(--bone);font-family:Figtree,system-ui,sans-serif}
+h1,h2,h3,.brand{font-family:'Bricolage Grotesque',Figtree,sans-serif}
+body.oled{--bg:#000;--panel:#000}
+.panel{background:var(--panel);border:1px solid var(--line)}
+.chip{white-space:nowrap;flex-shrink:0;border:1px solid var(--line);padding:.35rem .8rem;border-radius:999px;font-size:.85rem;color:#9fb39a}
+.chip.on{background:var(--g);color:#031205;border-color:var(--g);font-weight:700}
+.btn{background:var(--g);color:#031205;font-weight:700;border-radius:.6rem;padding:.5rem .9rem}
+.btn2{border:1px solid var(--line);border-radius:.6rem;padding:.5rem .9rem;color:var(--bone)}
+.btn2:hover,.chip:hover{border-color:var(--g)}
+:focus-visible{outline:2px solid var(--g);outline-offset:2px}
+.clamp2{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+html,body{max-width:100%;overflow-x:hidden}
+img,iframe,video{max-width:100%}
+input,select,textarea{font-size:16px}
+#nav{scrollbar-width:none}#nav::-webkit-scrollbar{display:none}
+.chip,.btn,.btn2{min-height:40px;display:inline-flex;align-items:center;justify-content:center}
+@media (max-width:640px){#grid,#sgrid{gap:.75rem}main{padding-left:.75rem!important;padding-right:.75rem!important}}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(60% 45% at 85% -5%,rgba(34,197,94,.16),transparent),radial-gradient(45% 35% at 0% 35%,rgba(34,197,94,.08),transparent)}
+body.oled::before{display:none}
+#fx{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+header,main,footer{position:relative;z-index:10}
+.logo-spin{animation:spin 1.4s cubic-bezier(.2,.8,.2,1) 1;filter:drop-shadow(0 0 8px rgba(34,197,94,.7))}
+@keyframes spin{from{transform:rotate(-180deg) scale(.4);opacity:0}to{transform:none;opacity:1}}
+.rise{animation:rise .5s backwards}@keyframes rise{from{opacity:0;transform:translateY(14px)}}
+.card{transition:transform .2s,box-shadow .2s,border-color .2s}
+.card:active{transform:scale(.97)}
+.card .shine{position:absolute;inset:0;background:linear-gradient(115deg,transparent 40%,rgba(255,255,255,.2) 50%,transparent 60%);transform:translateX(-120%);pointer-events:none}
+@media (hover:hover){.card:hover{transform:translateY(-4px);box-shadow:0 10px 30px -8px rgba(34,197,94,.5)}.card:hover .shine{transform:translateX(120%);transition:transform .7s}}
+.hero-slide{position:absolute;inset:0;opacity:0;transition:opacity .8s;pointer-events:none;overflow:hidden}
+.hero-slide.on{opacity:1;pointer-events:auto}
+.hero-bg{position:absolute;inset:-20px;background:var(--bg) center/cover;filter:blur(18px) saturate(1.3) brightness(.5)}
+.hero-slide::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,#050805 0%,transparent 75%)}
+.hero-slide>div:last-child{position:relative;z-index:2}
+.clamp3{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.dot{width:8px;height:8px;border-radius:99px;background:#355a3d;transition:all .3s}.dot.on{width:22px;background:var(--g)}
+.title-glow{text-shadow:0 0 22px rgba(34,197,94,.45)}
+.tab{display:flex;flex-direction:column;align-items:center;gap:2px;padding:.5rem 0;font-size:.7rem;color:#7f947a}
+.tab span{font-size:1.25rem;line-height:1.2}.tab.on{color:var(--g)}
+#modal:not(.hidden) #modal-body{animation:pop .25s ease-out}@keyframes pop{from{opacity:0;transform:translateY(20px) scale(.97)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
 </head>
+<body class="min-h-screen pb-16 md:pb-0">
+<canvas id="fx"></canvas>
 
-<body class="min-h-screen flex flex-col selection:bg-green-500 selection:text-black antialiased relative">
-  <!-- Subtle ambient background glow -->
-  <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-    <div class="absolute -top-40 right-1/4 w-96 h-96 bg-green-500/10 rounded-full blur-[128px]"></div>
-    <div class="absolute top-1/2 -left-32 w-80 h-80 bg-green-500/5 rounded-full blur-[100px]"></div>
-    <div class="absolute -bottom-20 right-10 w-96 h-96 bg-emerald-700/10 rounded-full blur-[130px]"></div>
+<svg width="0" height="0" style="position:absolute"><defs>
+<path id="leaf" d="M0 0C-18-6-20-30-7-32C-3-32.5 0-29 0-26C0-29 3-32.5 7-32C20-30 18-6 0 0Z"/>
+<symbol id="clover" viewBox="-40 -40 80 80"><g fill="currentColor"><use href="#leaf"/><use href="#leaf" transform="rotate(72)"/><use href="#leaf" transform="rotate(144)"/><use href="#leaf" transform="rotate(216)"/><use href="#leaf" transform="rotate(288)"/></g><circle r="3" fill="#050805"/></symbol>
+</defs></svg>
+
+<header class="md:sticky md:top-0 z-40 border-b border-[#1d2a1d] bg-black/90 backdrop-blur">
+  <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center gap-3">
+    <a href="#" onclick="show('discover');return false" class="flex items-center gap-2 shrink-0">
+      <svg class="logo-spin w-9 h-9 sm:w-10 sm:h-10 text-green-500"><use href="#clover"/></svg>
+      <span class="brand text-2xl font-extrabold title-glow">Kuro<span class="text-green-500">Tracker</span></span>
+    </a>
+    <form onsubmit="doSearch(event)" class="order-2 md:order-none w-full md:w-auto md:flex-1 max-w-xl">
+      <input id="q" type="search" placeholder="Search anime, like Black Clover or Frieren" class="w-full rounded-xl bg-[#0d130d] border border-[#1d2a1d] px-4 py-2 outline-none focus:border-green-500" aria-label="Search anime">
+    </form>
+    <nav class="hidden md:flex gap-2 text-sm" id="nav">
+      <button class="chip on" data-v="discover" onclick="show('discover')">Discover</button>
+      <button class="chip" data-v="schedule" onclick="show('schedule')">Schedule</button>
+      <button class="chip" data-v="mylist" onclick="show('mylist')">My list</button>
+      <button class="chip" data-v="player" onclick="show('player')">Player</button>
+      <button class="chip" data-v="network" onclick="show('network')">Network</button>
+    </nav>
+    <div class="order-1 ml-auto md:order-none md:ml-0 flex gap-2 text-sm">
+      <button class="chip" onclick="toggleOled()" id="oled">OLED off</button>
+      <button class="chip" onclick="authClick()" id="auth-btn">Sign in</button>
+    </div>
   </div>
+</header>
 
-  <!-- SVG Sprite definition for the Kuro Clover Logo & Icons -->
-  <svg width="0" height="0" class="hidden">
-    <defs>
-      <path id="leaf" d="M0 0C-18-6-20-30-7-32C-3-32.5 0-29 0-26C0-29 3-32.5 7-32C20-30 18-6 0 0Z"/>
-      <symbol id="clover" viewBox="-40 -40 80 80">
-        <g fill="currentColor">
-          <use href="#leaf"/>
-          <use href="#leaf" transform="rotate(72)"/>
-          <use href="#leaf" transform="rotate(144)"/>
-          <use href="#leaf" transform="rotate(216)"/>
-          <use href="#leaf" transform="rotate(288)"/>
-        </g>
-        <circle r="3" fill="#050805"/>
-      </symbol>
-    </defs>
-  </svg>
-
-  <header class="sticky top-0 z-40 bg-[#050805]/90 backdrop-blur-md border-b border-[#1d2a1d]">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
-      <div class="flex items-center gap-6">
-        <a href="#" class="flex items-center gap-2.5 group">
-          <svg class="w-8 h-8 text-green-500 transition-transform duration-500 group-hover:rotate-45"><use href="#clover"/></svg>
-          <span class="brand text-2xl font-extrabold tracking-tight">Kuro<span class="text-green-500">Hub</span></span>
-          <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-green-500/10 text-green-400 border border-green-500/20">Portal</span>
-        </a>
-
-        <nav class="hidden md:flex items-center gap-1 text-sm font-medium">
-          <a href="#quick-router" class="px-3 py-1.5 rounded-lg text-neutral-300 hover:text-white hover:bg-[#0d130d] transition">Multi-Launcher</a>
-          <a href="#bookmarks" class="px-3 py-1.5 rounded-lg text-neutral-300 hover:text-white hover:bg-[#0d130d] transition">Directory</a>
-          <a href="#trending" class="px-3 py-1.5 rounded-lg text-neutral-300 hover:text-white hover:bg-[#0d130d] transition">Trending Airing</a>
-          <a href="#ecosystem" class="px-3 py-1.5 rounded-lg text-neutral-300 hover:text-white hover:bg-[#0d130d] transition">Ecosystem</a>
-          <a href="https://kuro2607.github.io/kuronews/" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-lg text-neutral-300 hover:text-white hover:bg-[#0d130d] transition">KuroNews</a>
-          <a href="https://kuro2607.github.io/kuromanga/" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-lg text-neutral-300 hover:text-white hover:bg-[#0d130d] transition">KuroManga</a>
-        </nav>
-      </div>
-
-      <div class="flex items-center gap-3">
-        <!-- Direct Jump to KuroWatch Tracker Instance -->
-        <a href="https://kuro2607.github.io/kuro.watch/" target="_blank" rel="noopener noreferrer" 
-           class="flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-green-500/15 border border-green-500/30 text-green-400 text-sm font-bold hover:bg-green-500 hover:text-black transition shadow-sm">
-          <span>Open KuroWatch</span>
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-        </a>
-
-        <button onclick="openAddModal()" class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl panel text-sm hover:border-green-500 text-neutral-200 transition">
-          <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-          <span>Add Link</span>
-        </button>
+<main class="max-w-7xl mx-auto px-4 py-6">
+  <section id="v-discover">
+    <div id="hero" class="relative rounded-3xl overflow-hidden mb-6 hidden h-[300px] sm:h-[380px] border border-[#1d2a1d]"></div>
+    <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+      <h2 class="text-2xl font-extrabold title-glow" id="d-title">Airing now</h2>
+      <div class="flex flex-wrap gap-2" id="d-chips">
+        <button class="chip on" onclick="loadDiscover('airing',this)">Airing now</button>
+        <button class="chip" onclick="loadDiscover('popular',this)">Most popular</button>
+        <button class="chip" onclick="loadDiscover('top',this)">Top rated</button>
+        <button class="chip" onclick="loadDiscover('upcoming',this)">Upcoming</button>
       </div>
     </div>
-  </header>
+    <div id="grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4"></div>
+    <p id="status" class="text-sm text-[#9fb39a] mt-4"></p>
+  </section>
 
-  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-8 relative z-10 space-y-12">
-    
-    <!-- Hero / Multi-Search Command Center -->
-    <section id="quick-router" class="text-center pt-4 pb-2">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0d130d] border border-[#1d2a1d] text-xs text-neutral-400 mb-4">
-        <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-        <span>Connected with KuroWatch Tracker & Legal Streaming Services</span>
-      </div>
-      <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight title-glow max-w-3xl mx-auto">
-        Your Gateway to the <span class="text-transparent bg-clip-text bg-gradient-to-r from-green-400 via-emerald-400 to-teal-300">Anime Multiverse</span>
-      </h1>
-      <p class="mt-3 text-neutral-400 text-sm sm:text-base max-w-xl mx-auto">
-        Search any anime title once. Launch it instantly on official stream sites, track it, find discussions, manga chapters, or offline media.
-      </p>
+  <section id="v-schedule" class="hidden">
+    <h2 class="text-2xl font-extrabold mb-1">Weekly schedule</h2>
+    <p class="text-sm text-[#9fb39a] mb-4">Shows currently airing in Japan, by broadcast day.</p>
+    <div class="flex flex-wrap gap-2 mb-4" id="days"></div>
+    <div id="sgrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4"></div>
+  </section>
 
-      <!-- Universal Search & Routing Box -->
-      <div class="mt-8 max-w-3xl mx-auto">
-        <div class="panel rounded-2xl p-2 sm:p-3 shadow-2xl focus-within:border-green-500/70 transition-all glow-hover">
-          <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
-            <div class="relative flex-1 flex items-center">
-              <svg class="w-5 h-5 text-neutral-400 absolute left-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-              </svg>
-              <input id="multiSearchInput" type="text" 
-                     placeholder="Type an anime title (e.g. Solo Leveling, Frieren, Jujutsu Kaisen)..." 
-                     autocomplete="off"
-                     class="w-full bg-[#050805] text-white pl-11 pr-4 py-3 rounded-xl border border-transparent focus:border-green-500/50 outline-none text-base placeholder:text-neutral-500 transition">
-              <button id="clearSearchBtn" onclick="clearSearch()" class="hidden absolute right-3 text-neutral-500 hover:text-white p-1">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-              </button>
-            </div>
-            
-            <button onclick="handleQuickLaunch()" class="bg-green-500 hover:bg-green-400 active:scale-95 text-black font-extrabold px-6 py-3 rounded-xl transition flex items-center justify-center gap-2 shrink-0">
-              <span>Launch Router</span>
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 5l7 7-7 7M5 5l7 7-7 7"/></svg>
-            </button>
-          </div>
-
-          <!-- Quick presets tag pills -->
-          <div class="flex items-center gap-2 mt-3 px-1 overflow-x-auto text-xs text-neutral-400 custom-scrollbar pb-1">
-            <span class="shrink-0 font-medium text-neutral-500">Popular:</span>
-            <button onclick="fillAndSearch('Solo Leveling')" class="hover:text-green-400 hover:underline">Solo Leveling</button>
-            <span class="text-neutral-700">•</span>
-            <button onclick="fillAndSearch('Frieren: Beyond Journey\'s End')" class="hover:text-green-400 hover:underline">Frieren</button>
-            <span class="text-neutral-700">•</span>
-            <button onclick="fillAndSearch('Black Clover')" class="hover:text-green-400 hover:underline">Black Clover</button>
-            <span class="text-neutral-700">•</span>
-            <button onclick="fillAndSearch('Dandadan')" class="hover:text-green-400 hover:underline">Dandadan</button>
-            <span class="text-neutral-700">•</span>
-            <button onclick="fillAndSearch('Attack on Titan')" class="hover:text-green-400 hover:underline">Attack on Titan</button>
-          </div>
-        </div>
-
-        <!-- Dynamic Multi-Engine Launch Deck (Shown when query is present) -->
-        <div id="routerDeck" class="mt-4 panel rounded-2xl p-4 sm:p-5 text-left border-green-500/30 transition-all duration-300">
-          <div class="flex items-center justify-between border-b border-[#1d2a1d] pb-3 mb-4">
-            <div>
-              <span class="text-xs uppercase tracking-wider text-green-400 font-bold">Multi-Target Launcher</span>
-              <h3 class="text-lg font-bold text-white flex items-center gap-2">
-                Launch destination for: <span id="targetQueryName" class="text-green-400 italic">"..."</span>
-              </h3>
-            </div>
-            <span class="text-xs text-neutral-400 hidden sm:inline">Opens directly in high-priority tabs</span>
-          </div>
-
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
-            <!-- Group 1: Watch & Stream Legally -->
-            <div class="bg-[#050805] rounded-xl p-3 border border-[#1d2a1d] space-y-2">
-              <div class="flex items-center gap-1.5 font-bold text-neutral-200">
-                <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-                <span>Watch & Stream Legally</span>
-              </div>
-              <div class="flex flex-col gap-1.5">
-                <a id="btn-cr" target="_blank" class="px-2.5 py-1.5 rounded-lg bg-[#0d130d] hover:bg-[#192419] hover:text-green-400 flex items-center justify-between transition">
-                  <span>Crunchyroll</span>
-                  <span class="text-[10px] text-neutral-500">Global</span>
-                </a>
-                <a id="btn-netflix" target="_blank" class="px-2.5 py-1.5 rounded-lg bg-[#0d130d] hover:bg-[#192419] hover:text-green-400 flex items-center justify-between transition">
-                  <span>Netflix</span>
-                  <span class="text-[10px] text-neutral-500">Official</span>
-                </a>
-                <a id="btn-muse" target="_blank" class="px-2.5 py-1.5 rounded-lg bg-[#0d130d] hover:bg-[#192419] hover:text-green-400 flex items-center justify-between transition">
-                  <span>Muse Asia (YouTube)</span>
-                  <span class="text-[10px] text-green-400">Free Legal</span>
-                </a>
-                <a id="btn-anione" target="_blank" class="px-2.5 py-1.5 rounded-lg bg-[#0d130d] hover:bg-[#192419] hover:text-green-400 flex items-center justify-between transition">
-                  <span>Ani-One (YouTube)</span>
-                  <span class="text-[10px] text-green-400">Free Legal</span>
-                </a>
-              </div>
-            </div>
-
-            <!-- Group 2: Tracking & Progress -->
-            <div class="bg-[#050805] rounded-xl p-3 border border-[#1d2a1d] space-y-2">
-              <div class="flex items-center gap-1.5 font-bold text-neutral-200">
-                <span class="w-2 h-2 rounded-full bg-green-500"></span>
-                <span>Track & Manage Progress</span>
-              </div>
-              <div class="flex flex-col gap-1.5">
-                <a id="btn-kurowatch" target="_blank" class="px-2.5 py-1.5 rounded-lg bg-green-500/20 text-green-300 font-semibold hover:bg-green-500 hover:text-black flex items-center justify-between transition border border-green-500/30">
-                  <span>KuroWatch Tracker</span>
-                  <span class="text-[10px]">Your App ★</span>
-                </a>
-                <a id="btn-mal" target="_blank" class="px-2.5 py-1.5 rounded-lg bg-[#0d130d] hover:bg-[#192419] hover:text-green-400 flex items-center justify-between transition">
-                  <span>MyAnimeList</span>
-                  <span class="text-[10px] text-neutral-500">MAL DB</span>
-                </a>
-                <a id="btn-anilist" target="_blank" class="px-2.5 py-1.5 rounded-lg bg-[#0d130d] hover:bg-[#192419] hover:text-green-400 flex items-center justify-between transition">
-                  <span>AniList</span>
-                  <span class="text-[10px] text-neutral-500">Social</span>
-                </a>
-                <a id="btn-livechart" target="_blank" class="px-2.5 py-1.5 rounded-lg bg-[#0d130d] hover:bg-[#192419] hover:text-green-400 flex items-center justify-between transition">
-                  <span>LiveChart.me</span>
-                  <span class="text-[10px] text-neutral-500">Schedules</span>
-                </a>
-              </div>
-            </div>
-
-            <!-- Group 3: Discussions & Community -->
-            <div class="bg-[#050805] rounded-xl p-3 border border-[#1d2a1d] space-y-2">
-              <div class="flex items-center gap-1.5 font-bold text-neutral-200">
-                <span class="w-2 h-2 rounded-full bg-teal-400"></span>
-                <span>Community & Discussions</span>
-              </div>
-              <div class="flex flex-col gap-1.5">
-                <a id="btn-reddit" target="_blank" class="px-2.5 py-1.5 rounded-lg bg-[#0d130d] hover:bg-[#192419] hover:text-green-400 flex items-center justify-between transition">
-                  <span>Reddit r/anime Threads</span>
-                  <span class="text-[10px] text-neutral-500">Episode Disc.</span>
-                </a>
-                <a id="btn-kuromanga" target="_blank" class="px-2.5 py-1.5 rounded-lg bg-green-500/20 text-green-300 font-semibold hover:bg-green-500 hover:text-black flex items-center justify-between transition border border-green-500/30">
-                  <span>KuroManga</span>
-                  <span class="text-[10px] text-green-200/70">Track &amp; read links</span>
-                </a>
-                <a id="btn-kuronews" target="_blank" class="px-2.5 py-1.5 rounded-lg bg-green-500/20 text-green-300 font-semibold hover:bg-green-500 hover:text-black flex items-center justify-between transition border border-green-500/30">
-                  <span>KuroNews</span>
-                  <span class="text-[10px] text-green-200/70">Latest headlines</span>
-                </a>
-                <a id="btn-manga" target="_blank" class="px-2.5 py-1.5 rounded-lg bg-[#0d130d] hover:bg-[#192419] hover:text-green-400 flex items-center justify-between transition">
-                  <span>MangaUpdates / Baka</span>
-                  <span class="text-[10px] text-neutral-500">Source info</span>
-                </a>
-                <a id="btn-animenews" target="_blank" class="px-2.5 py-1.5 rounded-lg bg-[#0d130d] hover:bg-[#192419] hover:text-green-400 flex items-center justify-between transition">
-                  <span>Anime News Network</span>
-                  <span class="text-[10px] text-neutral-500">News/Staff</span>
-                </a>
-                <a id="btn-fandom" target="_blank" class="px-2.5 py-1.5 rounded-lg bg-[#0d130d] hover:bg-[#192419] hover:text-green-400 flex items-center justify-between transition">
-                  <span>Fandom Wiki</span>
-                  <span class="text-[10px] text-neutral-500">Lore/Bio</span>
-                </a>
-              </div>
-            </div>
-
-            <!-- Group 4: Download / Offline & OST -->
-            <div class="bg-[#050805] rounded-xl p-3 border border-[#1d2a1d] space-y-2">
-              <div class="flex items-center gap-1.5 font-bold text-neutral-200">
-                <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-                <span>Offline, OST & Media</span>
-              </div>
-              <div class="flex flex-col gap-1.5">
-                <a id="btn-animethemes" target="_blank" class="px-2.5 py-1.5 rounded-lg bg-[#0d130d] hover:bg-[#192419] hover:text-green-400 flex items-center justify-between transition">
-                  <span>AnimeThemes (OP/ED)</span>
-                  <span class="text-[10px] text-green-400">Themes</span>
-                </a>
-                <a id="btn-cdjapan" target="_blank" class="px-2.5 py-1.5 rounded-lg bg-[#0d130d] hover:bg-[#192419] hover:text-green-400 flex items-center justify-between transition">
-                  <span>CDJapan / AmiAmi</span>
-                  <span class="text-[10px] text-neutral-500">Blu-ray/Goods</span>
-                </a>
-                <a id="btn-croffline" target="_blank" class="px-2.5 py-1.5 rounded-lg bg-[#0d130d] hover:bg-[#192419] hover:text-green-400 flex items-center justify-between transition">
-                  <span>Crunchyroll Offline App</span>
-                  <span class="text-[10px] text-neutral-500">Mobile Sync</span>
-                </a>
-                <a id="btn-wallpapers" target="_blank" class="px-2.5 py-1.5 rounded-lg bg-[#0d130d] hover:bg-[#192419] hover:text-green-400 flex items-center justify-between transition">
-                  <span>Wallhaven 4K Art</span>
-                  <span class="text-[10px] text-neutral-500">Wallpapers</span>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- KuroWatch Ecosystem Connection Showcase Banner -->
-    <section id="ecosystem" class="panel rounded-3xl p-6 sm:p-8 bg-gradient-to-br from-[#0d160d] via-[#081008] to-[#040804] border-green-500/20 relative overflow-hidden">
-      <div class="absolute right-0 top-0 bottom-0 w-1/3 bg-radial from-green-500/10 to-transparent pointer-events-none"></div>
-      
-      <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative z-10">
-        <div class="space-y-3 max-w-2xl">
-          <div class="flex items-center gap-2">
-            <span class="px-2.5 py-0.5 rounded-md bg-green-500 text-black font-extrabold text-xs uppercase tracking-wider">Official Companion</span>
-            <span class="text-xs text-neutral-400">Directly synchronized with KuroWatch</span>
-          </div>
-          <h2 class="text-2xl sm:text-3xl font-extrabold text-white">
-            The <span class="text-green-400">Kuro</span> network: Watch, News and Manga
-          </h2>
-          <p class="text-sm text-neutral-300 leading-relaxed">
-            While <strong>KuroHub</strong> is your command center to launch into any external streaming service, database, or community, your personal <strong>KuroWatch</strong> site tracks episode numbers, saves cloud backups, and checks daily Japanese broadcast schedules.
-          </p>
-          <div class="flex flex-wrap gap-2 pt-1 text-xs">
-            <span class="chip px-3 py-1 rounded-full text-green-300 border-green-500/30">✓ Cross-Device Cloud Sync</span>
-            <span class="chip px-3 py-1 rounded-full text-green-300 border-green-500/30">✓ Weekly Broadcast Airing Grid</span>
-            <span class="chip px-3 py-1 rounded-full text-green-300 border-green-500/30">✓ Franchise & Season Chronology</span>
-          </div>
-        </div>
-
-        <div class="flex flex-col sm:flex-row gap-3 w-full md:w-auto shrink-0">
-          <a href="https://kuro2607.github.io/kuro.watch/" target="_blank" rel="noopener noreferrer" 
-             class="px-5 py-3 rounded-xl bg-green-500 hover:bg-green-400 text-black font-extrabold text-center transition flex items-center justify-center gap-2 shadow-lg shadow-green-900/30">
-            <span>Launch KuroWatch</span>
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-          </a>
-          <button onclick="copyKuroUrl()" class="px-4 py-3 rounded-xl panel hover:border-green-500 text-sm font-semibold text-neutral-300 transition text-center flex items-center justify-center gap-2">
-            <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
-            <span id="copyFeedback">Copy Link</span>
-          </button>
-        </div>
-      </div>
-          <div class="grid sm:grid-cols-3 gap-3 mt-6 relative z-10">
-        <a href="https://kuro2607.github.io/kuro.watch/" target="_blank" rel="noopener noreferrer" class="panel rounded-2xl p-4 hover:border-green-500 glow-hover transition block">
-          <div class="flex items-center gap-2 mb-1"><svg class="w-6 h-6 text-green-500"><use href="#clover"/></svg><b class="brand text-lg">KuroWatch</b></div>
-          <p class="text-xs text-neutral-400">Anime discovery, weekly schedule, seasons and your watchlist.</p>
-        </a>
-        <a href="https://kuro2607.github.io/kuronews/" target="_blank" rel="noopener noreferrer" class="panel rounded-2xl p-4 hover:border-green-500 glow-hover transition block">
-          <div class="flex items-center gap-2 mb-1"><svg class="w-6 h-6 text-green-500"><use href="#clover"/></svg><b class="brand text-lg">KuroNews</b></div>
-          <p class="text-xs text-neutral-400">Latest anime headlines from the top news sites.</p>
-        </a>
-        <a href="https://kuro2607.github.io/kuromanga/" target="_blank" rel="noopener noreferrer" class="panel rounded-2xl p-4 hover:border-green-500 glow-hover transition block">
-          <div class="flex items-center gap-2 mb-1"><svg class="w-6 h-6 text-green-500"><use href="#clover"/></svg><b class="brand text-lg">KuroManga</b></div>
-          <p class="text-xs text-neutral-400">Manga, manhwa and novels with official read links and a reading list.</p>
-        </a>
-      </div>
-    </section>
-
-    <!-- Trending / Seasonal Anime with Quick Launchers -->
-    <section id="trending" class="space-y-4">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#1d2a1d] pb-3">
-        <div>
-          <div class="flex items-center gap-2">
-            <span class="w-2.5 h-2.5 rounded-full bg-green-500 animate-pulse"></span>
-            <h2 class="text-xl sm:text-2xl font-extrabold text-white">Trending Anime Right Now</h2>
-          </div>
-          <p class="text-xs sm:text-sm text-neutral-400">Real-time popular series with 1-click cross-platform launch buttons</p>
-        </div>
-        <div class="flex items-center gap-2">
-          <button onclick="loadTrending('airing')" id="tab-airing" class="chip active px-3 py-1 rounded-lg text-xs">Top Airing</button>
-          <button onclick="loadTrending('bypopularity')" id="tab-bypopularity" class="chip px-3 py-1 rounded-lg text-xs">All-Time Popular</button>
-          <button onclick="loadTrending('upcoming')" id="tab-upcoming" class="chip px-3 py-1 rounded-lg text-xs">Anticipated</button>
-        </div>
-      </div>
-
-      <div id="trendingGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <!-- Skeletons rendered by default -->
-        <div class="panel rounded-2xl p-4 animate-pulse h-64"></div>
-        <div class="panel rounded-2xl p-4 animate-pulse h-64"></div>
-        <div class="panel rounded-2xl p-4 animate-pulse h-64"></div>
-        <div class="panel rounded-2xl p-4 animate-pulse h-64"></div>
-      </div>
-    </section>
-
-    <!-- Categorized Bookmarks & Directory Dock -->
-    <section id="bookmarks" class="space-y-4">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#1d2a1d] pb-3">
-        <div>
-          <h2 class="text-xl sm:text-2xl font-extrabold text-white">Curated Anime Web Directory</h2>
-          <p class="text-xs sm:text-sm text-neutral-400">High-reputation platforms organized for watching, tracking, manga, and lore</p>
-        </div>
-        
-        <div class="flex items-center gap-2">
-          <button onclick="openAddModal()" class="px-3 py-1.5 rounded-lg bg-[#0d130d] border border-[#1d2a1d] hover:border-green-500 text-xs font-semibold text-green-400 flex items-center gap-1.5 transition">
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-            <span>Add Custom Site</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- Category Filter Pills -->
-      <div class="flex items-center gap-2 overflow-x-auto custom-scrollbar pb-2 text-xs" id="categoryFilterBar">
-        <button onclick="filterBookmarks('all')" class="cat-pill active chip px-3.5 py-1.5 rounded-full" data-cat="all">All Platforms</button>
-        <button onclick="filterBookmarks('watch')" class="cat-pill chip px-3.5 py-1.5 rounded-full" data-cat="watch">Streaming & Video</button>
-        <button onclick="filterBookmarks('track')" class="cat-pill chip px-3.5 py-1.5 rounded-full" data-cat="track">Trackers & Databases</button>
-        <button onclick="filterBookmarks('manga')" class="cat-pill chip px-3.5 py-1.5 rounded-full" data-cat="manga">Manga & Light Novels</button>
-        <button onclick="filterBookmarks('community')" class="cat-pill chip px-3.5 py-1.5 rounded-full" data-cat="community">Community & News</button>
-        <button onclick="filterBookmarks('media')" class="cat-pill chip px-3.5 py-1.5 rounded-full" data-cat="media">OST, Merch & Art</button>
-        <button onclick="filterBookmarks('custom')" class="cat-pill chip px-3.5 py-1.5 rounded-full" data-cat="custom">My Custom Bookmarks</button>
-      </div>
-
-      <!-- Links Grid -->
-      <div id="bookmarksGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
-        <!-- Injected dynamically via JS -->
-      </div>
-    </section>
-
-    <!-- Instant Title Batch Deep-Linker -->
-    <section class="panel rounded-3xl p-6 border-[#1d2a1d] bg-[#090d09]">
-      <div class="max-w-2xl">
-        <h3 class="text-lg font-bold text-white mb-1">Instant Multi-Tab Title Generator</h3>
-        <p class="text-xs text-neutral-400 mb-4">Need to search an anime across multiple platforms without typing it repeatedly? Type once and click the icons to jump instantly.</p>
-        
-        <div class="flex gap-2">
-          <input id="batchInput" type="text" placeholder="e.g. Chainsaw Man, Bleach, Spy x Family..." 
-                 class="flex-1 bg-[#050805] text-white px-3.5 py-2 rounded-xl border border-[#1d2a1d] text-sm focus:border-green-500 outline-none">
-          <button onclick="generateBatchLinks()" class="px-4 py-2 bg-green-500 text-black font-bold text-xs rounded-xl hover:bg-green-400 transition">
-            Generate Links
-          </button>
-        </div>
-
-        <div id="batchResults" class="mt-4 hidden space-y-2">
-          <p class="text-xs text-green-400 font-semibold" id="batchTitleHeader"></p>
-          <div class="flex flex-wrap gap-2" id="batchLinksContainer"></div>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <footer class="mt-12 border-t border-[#1d2a1d] bg-[#050805] relative z-10 text-xs text-neutral-500 py-8">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row items-center justify-between gap-4">
-      <div class="flex items-center gap-2">
-        <svg class="w-5 h-5 text-green-500"><use href="#clover"/></svg>
-        <span class="font-bold text-neutral-300">KuroHub & KuroWatch Ecosystem</span>
-        <span>•</span>
-        <span>Empowering Fans with Legal Discovery</span>
-      </div>
-      <p class="text-center md:text-right text-[11px] text-neutral-500">
-        KuroHub does not host or pirate video content. It acts as an open index and router for official streaming platforms and community services.
-      </p>
+  <section id="v-mylist" class="hidden">
+    <h2 class="text-2xl font-extrabold mb-4">My list</h2>
+    <div id="mylist-body" class="space-y-8"></div>
+    <div class="flex items-center justify-between mt-10 mb-3">
+      <h3 class="text-xl font-extrabold">Recently viewed</h3>
+      <button class="btn2 text-sm" onclick="clearHist()">Clear history</button>
     </div>
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 mt-4 flex flex-wrap items-center justify-center gap-2"><a class="chip px-3 py-1 rounded-full text-green-300" href="https://kuro2607.github.io/hub/">KuroHub</a><a class="chip px-3 py-1 rounded-full text-green-300" href="https://kuro2607.github.io/kuro.watch/">KuroWatch</a><a class="chip px-3 py-1 rounded-full text-green-300" href="https://kuro2607.github.io/kuronews/">KuroNews</a><a class="chip px-3 py-1 rounded-full text-green-300" href="https://kuro2607.github.io/kuromanga/">KuroManga</a></div>
-  </footer>
+    <div id="hist" class="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-8 gap-3"></div>
+  </section>
 
-  <!-- Modal: Add Custom Website Bookmark -->
-  <div id="addModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
-    <div class="panel rounded-2xl max-w-md w-full p-5 space-y-4 border-green-500/30">
-      <div class="flex items-center justify-between">
-        <h3 class="text-lg font-bold text-white">Add Custom Anime Site</h3>
-        <button onclick="closeAddModal()" class="text-neutral-400 hover:text-white p-1">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-        </button>
+  <section id="v-network" class="hidden max-w-4xl">
+    <h2 class="text-2xl font-extrabold mb-1 title-glow">KuroTracker network</h2>
+    <p class="text-sm text-[#9fb39a] mb-4">Sister sites that share this look and, if you sign in, the same account.</p>
+    <div id="sites" class="grid sm:grid-cols-2 gap-4"></div>
+  </section>
+
+  <section id="v-player" class="hidden max-w-4xl">
+    <h2 class="text-2xl font-extrabold mb-1">Player</h2>
+    <p class="text-sm text-[#9fb39a] mb-4">Plays YouTube links (official channels), free open movies, and video files from your own device.</p>
+    <div class="panel rounded-2xl overflow-hidden">
+      <div class="aspect-video bg-black flex items-center justify-center" id="stage">
+        <p class="text-[#9fb39a] text-sm px-4 text-center">Pick a video below to start watching.</p>
       </div>
-
-      <form id="customSiteForm" onsubmit="saveCustomSite(event)" class="space-y-3 text-xs">
-        <div>
-          <label class="block text-neutral-300 font-medium mb-1">Site Name *</label>
-          <input id="siteName" required placeholder="e.g. MangaDex, HiDive, AniChart..." class="w-full bg-[#050805] border border-[#1d2a1d] rounded-lg px-3 py-2 text-white outline-none focus:border-green-500">
-        </div>
-
-        <div>
-          <label class="block text-neutral-300 font-medium mb-1">Website URL *</label>
-          <input id="siteUrl" type="url" required placeholder="https://example.com" class="w-full bg-[#050805] border border-[#1d2a1d] rounded-lg px-3 py-2 text-white outline-none focus:border-green-500">
-        </div>
-
-        <div>
-          <label class="block text-neutral-300 font-medium mb-1">Category</label>
-          <select id="siteCat" class="w-full bg-[#050805] border border-[#1d2a1d] rounded-lg px-3 py-2 text-white outline-none focus:border-green-500">
-            <option value="watch">Streaming & Video</option>
-            <option value="track">Trackers & Databases</option>
-            <option value="manga">Manga & Light Novels</option>
-            <option value="community">Community & News</option>
-            <option value="media">OST, Merch & Art</option>
-            <option value="custom">General Custom</option>
-          </select>
-        </div>
-
-        <div>
-          <label class="block text-neutral-300 font-medium mb-1">Short Description</label>
-          <input id="siteDesc" placeholder="e.g. Free official manga releases..." class="w-full bg-[#050805] border border-[#1d2a1d] rounded-lg px-3 py-2 text-white outline-none focus:border-green-500">
-        </div>
-
-        <div class="pt-2 flex gap-2">
-          <button type="submit" class="flex-1 py-2.5 rounded-lg bg-green-500 text-black font-bold text-xs hover:bg-green-400 transition">Save to My Hub</button>
-          <button type="button" onclick="closeAddModal()" class="px-4 py-2.5 rounded-lg panel text-neutral-300 hover:text-white transition">Cancel</button>
-        </div>
+    </div>
+    <div class="grid md:grid-cols-2 gap-4 mt-4">
+      <form onsubmit="playYT(event)" class="panel rounded-2xl p-4 space-y-2">
+        <label class="font-bold" for="yt">Play a YouTube link</label>
+        <input id="yt" placeholder="Video or playlist link from YouTube" class="w-full rounded-lg bg-black border border-[#1d2a1d] px-3 py-2 outline-none focus:border-green-500">
+        <button class="btn">Play</button>
+        <p class="text-xs text-[#9fb39a]">Publishers such as Ani-One, Muse Asia and Crunchyroll post full episodes and trailers on YouTube.</p>
       </form>
+      <div class="panel rounded-2xl p-4 space-y-2">
+        <label class="font-bold" for="file">Play a file from your device</label>
+        <input id="file" type="file" accept="video/*" onchange="playFile(this)" class="block w-full text-sm">
+        <p class="text-xs text-[#9fb39a]">The file stays on your device. Nothing is uploaded.</p>
+      </div>
+    </div>
+    <div class="panel rounded-2xl p-4 mt-4 space-y-3">
+      <p class="font-bold">Find full episodes on official channels</p>
+      <form onsubmit="ytFind(event)" class="flex flex-wrap gap-2">
+        <input id="ytq" placeholder="Anime title, like Black Clover" class="flex-1 min-w-[180px] rounded-lg bg-black border border-[#1d2a1d] px-3 py-2 outline-none focus:border-green-500" aria-label="Anime title">
+        <select id="ytch" class="bg-black border border-[#1d2a1d] rounded-lg px-3 py-2" aria-label="Channel">
+          <option>Ani-One Asia</option><option>Ani-One India</option><option>Muse Asia</option></select>
+        <button class="btn">Search on YouTube</button>
+      </form>
+      <p class="text-xs text-[#9fb39a]">The search opens YouTube in a new tab. Copy the video or playlist link you want, paste it above, and it plays here.</p>
+      <div class="flex flex-wrap gap-2">
+        <a class="btn2 text-sm" target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/@AniOneAsia">Ani-One Asia channel</a>
+        <a class="btn2 text-sm" target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/@AniOneTHCollection">Ani-One Thailand Collection</a>
+      </div>
+    </div>
+    <h3 class="font-bold mt-6 mb-2">Free open movies</h3>
+    <div class="flex flex-wrap gap-2">
+      <button class="btn2" onclick="embed('eRsGyueVLvQ')">Sintel</button>
+      <button class="btn2" onclick="embed('aqz-KE-bpKQ')">Big Buck Bunny</button>
+      <button class="btn2" onclick="embed('R6MlUcmOul8')">Tears of Steel</button>
+    </div>
+    <p class="text-xs text-[#9fb39a] mt-2">Made by the Blender Foundation under Creative Commons licenses.</p>
+  </section>
+</main>
+
+<footer class="max-w-7xl mx-auto px-4 py-8 mt-6 border-t border-[#1d2a1d] text-sm text-[#9fb39a]">
+  <p class="max-w-3xl">KuroTracker is a free anime discovery and tracking site. Search thousands of anime, read synopses and scores, watch official trailers, check the weekly airing schedule, and keep a watchlist with episode progress. Every show links to the services where it streams legally. KuroTracker does not host any video.</p>
+</footer>
+<nav id="tabbar" class="md:hidden fixed bottom-0 inset-x-0 z-40 grid grid-cols-5 bg-black/95 backdrop-blur border-t border-[#1d2a1d]" style="padding-bottom:env(safe-area-inset-bottom)">
+  <button class="tab on" data-v="discover" onclick="show('discover')"><span>🔥</span>Discover</button>
+  <button class="tab" data-v="schedule" onclick="show('schedule')"><span>📅</span>Schedule</button>
+  <button class="tab" data-v="mylist" onclick="show('mylist')"><span>📚</span>My list</button>
+  <button class="tab" data-v="player" onclick="show('player')"><span>▶️</span>Player</button>
+  <button class="tab" data-v="network" onclick="show('network')"><span>🌐</span>Network</button>
+</nav>
+
+<div id="modal" class="fixed inset-0 z-50 hidden bg-black/85 p-3 overflow-y-auto" onclick="if(event.target===this)closeModal()">
+  <div class="panel rounded-2xl max-w-3xl mx-auto my-2 sm:my-4 p-4 sm:p-5" role="dialog" aria-modal="true" id="modal-body"></div>
+</div>
+
+<div id="auth-modal" class="fixed inset-0 z-50 hidden bg-black/85 p-3 overflow-y-auto" onclick="if(event.target===this)closeAuth()">
+  <div class="panel rounded-2xl max-w-sm mx-auto my-8 p-5 space-y-4" role="dialog" aria-modal="true" aria-label="Account">
+    <div class="flex justify-between items-center"><h2 class="text-xl font-extrabold">Your account</h2><button class="btn2" onclick="closeAuth()">Close</button></div>
+    <div id="auth-forms" class="space-y-2">
+      <button class="btn w-full" onclick="authGoogle()">Continue with Google</button>
+      <p class="text-center text-xs text-[#9fb39a]">or use email</p>
+      <input id="au-email" type="email" autocomplete="email" placeholder="Email" class="w-full rounded-lg bg-black border border-[#1d2a1d] px-3 py-2 outline-none focus:border-green-500">
+      <input id="au-pass" type="password" autocomplete="current-password" placeholder="Password (6+ characters)" class="w-full rounded-lg bg-black border border-[#1d2a1d] px-3 py-2 outline-none focus:border-green-500">
+      <div class="flex gap-2"><button class="btn flex-1" onclick="authEmail(false)">Sign in</button><button class="btn2 flex-1" onclick="authEmail(true)">Create account</button></div>
+      <p class="text-xs text-[#9fb39a]">Signing in saves your list online, so it follows you to any device.</p>
+    </div>
+    <div id="auth-off" class="hidden text-sm text-[#cfdccb] panel rounded-xl p-3">Online sign-in is not switched on for this site yet. Your list is saved in this browser. Use the backup buttons below to move it to another device.</div>
+    <div class="border-t border-[#1d2a1d] pt-3 space-y-2">
+      <p class="font-bold text-sm">Backup</p>
+      <div class="flex flex-wrap gap-2 items-center"><button class="btn2 text-sm" onclick="exportData()">Download backup</button>
+      <label class="btn2 text-sm cursor-pointer">Import backup<input type="file" accept="application/json" class="hidden" onchange="importData(this)"></label></div>
     </div>
   </div>
+</div>
 
-  <!-- Toast Notification Box -->
-  <div id="toast" class="fixed bottom-6 right-6 z-50 hidden panel border-green-500 text-white text-xs px-4 py-3 rounded-xl shadow-2xl flex items-center gap-2">
-    <svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-    <span id="toastMsg">Notification</span>
-  </div>
+<div id="toast" class="fixed bottom-20 md:bottom-4 left-3 right-3 sm:left-auto sm:right-5 z-50 text-center hidden panel border-green-500 rounded-xl px-4 py-2 text-sm"></div>
 
-  <script>
-    /* Default Directory of Verified Anime Ecosystem Platforms */
-    const DEFAULT_BOOKMARKS = [
-      // Watch Category
-      { id: 'cr', name: 'Crunchyroll', url: 'https://www.crunchyroll.com', cat: 'watch', desc: 'Largest legal anime streaming catalog worldwide.', badge: 'Streaming' },
-      { id: 'nf', name: 'Netflix Anime', url: 'https://www.netflix.com', cat: 'watch', desc: 'Top exclusive global anime originals and blockbusters.', badge: 'Streaming' },
-      { id: 'muse', name: 'Muse Asia', url: 'https://www.youtube.com/@MuseAsia', cat: 'watch', desc: '100% legal, free episodes on YouTube across Asia.', badge: 'YouTube' },
-      { id: 'anione', name: 'Ani-One Asia', url: 'https://www.youtube.com/@AniOneAsia', cat: 'watch', desc: 'Simulcast full episodes free legally on YouTube.', badge: 'YouTube' },
-      { id: 'hidive', name: 'HiDive', url: 'https://www.hidive.com', cat: 'watch', desc: 'Home to exclusive dubs, uncensored cuts, and classics.', badge: 'Streaming' },
-      { id: 'bilibili', name: 'Bilibili Global', url: 'https://www.bilibili.tv', cat: 'watch', desc: 'Massive licensed catalog for SEA and international regions.', badge: 'Streaming' },
+<script>
+/* Firebase web config for online sign-in. */
+window.FIREBASE_CONFIG={
+  apiKey:"AIzaSyCnJCDcAxu9ekD_nyogYHC_VGiuK9x7HeY",
+  authDomain:"kurowatch26.firebaseapp.com",
+  projectId:"kurowatch26",
+  storageBucket:"kurowatch26.firebasestorage.app",
+  messagingSenderId:"532286663353",
+  appId:"1:532286663353:web:cb5be4df6681f28731c968",
+  measurementId:"G-S8KV6BF6NX"
+};
+</script>
+<script>
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const store={get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}if(window.cloudSave&&(k==='kw_list'||k==='kw_hist'))window.cloudSave()}};
+let list=store.get('kw_list',{}), hist=store.get('kw_hist',[]);
+const cache={};
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+const withTimeout=(p,ms)=>Promise.race([p,new Promise((_,r)=>setTimeout(()=>r(new Error('Request timed out')),ms))]);
 
-      // Track & Databases
-      { id: 'kuro', name: 'KuroWatch', url: 'https://kuro2607.github.io/kuro.watch/', cat: 'track', desc: 'Your sleek companion: Airing calendar & progress tracker.', badge: 'Ecosystem ★' },
-      { id: 'kuronews', name: 'KuroNews', url: 'https://kuro2607.github.io/kuronews/', cat: 'community', desc: 'Latest anime headlines from top news sites in one feed.', badge: 'Ecosystem ★' },
-      { id: 'kuromanga', name: 'KuroManga', url: 'https://kuro2607.github.io/kuromanga/', cat: 'manga', desc: 'Discover and track manga, manhwa and light novels with official read links.', badge: 'Ecosystem ★' },
-      { id: 'mal', name: 'MyAnimeList', url: 'https://myanimelist.net', cat: 'track', desc: 'The historic anime review database and score catalog.', badge: 'Database' },
-      { id: 'anilist', name: 'AniList', url: 'https://anilist.co', cat: 'track', desc: 'Modern social anime tracking and stats breakdown.', badge: 'Database' },
-      { id: 'livechart', name: 'LiveChart.me', url: 'https://www.livechart.me', cat: 'track', desc: 'Countdown timers for exact Japanese airing broadcast times.', badge: 'Schedules' },
-      { id: 'kitsu', name: 'Kitsu.io', url: 'https://kitsu.app', cat: 'track', desc: 'Social tracker with community recommendations.', badge: 'Database' },
-      { id: 'justwatch', name: 'JustWatch', url: 'https://www.justwatch.com', cat: 'track', desc: 'Find where any anime streams in your specific country.', badge: 'Legal Finder' },
+async function api(path,tries=3){
+  if(cache[path])return cache[path];
+  const r=await withTimeout(fetch('https://api.jikan.moe/v4'+path),8000);
+  if(r.status===429&&tries>0){await sleep(1200);return api(path,tries-1)}
+  if(!r.ok)throw new Error('Request failed ('+r.status+')');
+  const j=await r.json();cache[path]=j;return j;
+}
+function toast(t){const e=$('#toast');e.textContent=t;e.classList.remove('hidden');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.add('hidden'),2200)}
+const name=a=>a.title_english||a.title;
+const pic=a=>a.images?.jpg?.large_image_url||a.images?.jpg?.image_url||'';
 
-      // Manga & Light Novels
-      { id: 'mangaplus', name: 'MANGA Plus (Shueisha)', url: 'https://mangaplus.shueisha.co.jp', cat: 'manga', desc: 'Read official Weekly Shonen Jump chapters free same-day as Japan.', badge: 'Official' },
-      { id: 'viz', name: 'VIZ Media', url: 'https://www.viz.com', cat: 'manga', desc: 'Official digital manga library, simulpubs, and translations.', badge: 'Official' },
-      { id: 'kobo', name: 'BookWalker Global', url: 'https://global.bookwalker.jp', cat: 'manga', desc: 'Kadokawa’s official Japanese Light Novel and manga digital store.', badge: 'Light Novels' },
-      { id: 'bakaupdates', name: 'MangaUpdates', url: 'https://www.mangaupdates.com', cat: 'manga', desc: 'The most comprehensive encyclopedia for manga and light novels.', badge: 'Index' },
+function card(a){
+  const inList=list[a.mal_id];
+  return `<button onclick="openDetail(${a.mal_id})" class="card rise text-left group panel rounded-xl overflow-hidden hover:border-green-500">
+    <div class="relative aspect-[3/4] bg-black">
+      <img loading="lazy" src="${esc(pic(a))}" alt="${esc(name(a))} cover" class="w-full h-full object-cover"><span class="shine"></span>
+      ${a.score?`<span class="absolute top-2 left-2 bg-black/80 text-green-400 text-xs font-bold px-2 py-0.5 rounded">${a.score}</span>`:''}
+      ${inList?`<span class="absolute top-2 right-2 bg-green-500 text-black text-xs font-bold px-2 py-0.5 rounded">${esc(inList.status)}</span>`:''}
+    </div>
+    <div class="p-2.5"><h3 class="text-sm font-bold clamp2">${esc(name(a))}</h3>
+    <p class="text-xs text-[#9fb39a] mt-1">${esc(a.type||'')}${a.episodes?' - '+a.episodes+' eps':''}</p></div></button>`;
+}
+function fill(el,items){
+  const seen=new Set();
+  items=items.filter(a=>!seen.has(a.mal_id)&&seen.add(a.mal_id));
+  el.innerHTML=items.length?items.map(card).join(''):'<p class="text-[#9fb39a] col-span-full">No results. Try another title.</p>';
+  stagger(el);
+}
+function stagger(el){[...el.children].forEach((c,i)=>c.style.animationDelay=Math.min(i,14)*45+'ms')}
+function skeleton(el){el.innerHTML=Array(12).fill('<div class="aspect-[3/4] rounded-xl bg-[#0d130d] animate-pulse"></div>').join('')}
 
-      // Community & News
-      { id: 'reddit_anime', name: 'r/anime (Reddit)', url: 'https://www.reddit.com/r/anime', cat: 'community', desc: 'The largest online discussion hub for episode discussion threads.', badge: 'Community' },
-      { id: 'ann', name: 'Anime News Network', url: 'https://www.animenewsnetwork.com', cat: 'community', desc: 'Journalistic industry breaking news, staff listings, and leaks.', badge: 'News' },
-      { id: 'sakuga', name: 'Sakugabooru', url: 'https://www.sakugabooru.com', cat: 'community', desc: 'Showcasing key animation clips and master animators.', badge: 'Animation' },
-      { id: 'malforums', name: 'MAL Forums', url: 'https://myanimelist.net/forum/', cat: 'community', desc: 'Decade-spanning episode discussions and character polls.', badge: 'Forum' },
+/* AniList backup source */
+async function gql(query,variables){
+  const r=await withTimeout(fetch('https://graphql.anilist.co',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({query,variables})}),10000);
+  if(!r.ok)throw new Error('AniList '+r.status);
+  const j=await r.json();if(j.errors)throw new Error(j.errors[0].message);return j.data;
+}
+const AL_F='id idMal isAdult title{romaji english} coverImage{large} averageScore episodes format status seasonYear genres studios(isMain:true){nodes{name}} description(asHtml:false) trailer{id site} externalLinks{site url type}';
+function fromAL(m){
+  const yt=m.trailer&&m.trailer.site==='youtube'?m.trailer.id:null;
+  return {mal_id:m.idMal||-m.id,title:m.title.romaji,title_english:m.title.english,
+    images:{jpg:{large_image_url:m.coverImage.large}},score:m.averageScore?+(m.averageScore/10).toFixed(1):null,
+    episodes:m.episodes,type:(m.format||'').replace('_',' '),status:m.status,year:m.seasonYear,
+    synopsis:(m.description||'').replace(/<[^>]*>/g,' '),genres:(m.genres||[]).map(g=>({name:g})),
+    studios:((m.studios&&m.studios.nodes)||[]).map(x=>({name:x.name})),
+    trailer:yt?{embed_url:'https://www.youtube.com/embed/'+yt}:null,
+    streaming:(m.externalLinks||[]).filter(l=>l.type==='STREAMING').map(l=>({name:l.site,url:l.url}))};
+}
+async function alRun(filter,decl,vars){
+  const d=await gql(`query${decl}{Page(perPage:36){${filter}}}`,vars||{});
+  const arr=d.Page.media||(d.Page.airingSchedules||[]).map(x=>x.media);
+  return arr.filter(m=>m&&!m.isAdult).map(fromAL);
+}
+function failBox(msg,retry){return `<div class="col-span-full panel rounded-xl p-5"><p class="font-bold">Could not load anime</p><p class="text-sm text-[#9fb39a] my-2">${esc(msg)}. Check your internet connection, then retry.</p><button class="btn" onclick="${retry}">Retry</button></div>`}
 
-      // OST, Merch, Offline & Art
-      { id: 'animethemes', name: 'AnimeThemes.moe', url: 'https://animethemes.moe', cat: 'media', desc: 'High-bitrate creditless anime Openings (OP) and Endings (ED).', badge: 'Music' },
-      { id: 'wallhaven', name: 'Wallhaven Anime', url: 'https://wallhaven.cc/search?q=anime', cat: 'media', desc: 'Pristine 4K and ultra-wide curated anime wallpapers.', badge: 'Art' },
-      { id: 'cdjapan', name: 'CDJapan', url: 'https://www.cdjapan.co.jp', cat: 'media', desc: 'Official direct import of Japanese Blu-rays, CDs, and figures.', badge: 'Store' },
-      { id: 'amiami', name: 'AmiAmi', url: 'https://www.amiami.com', cat: 'media', desc: 'Leading Japanese retailer for authentic anime collectibles.', badge: 'Merch' }
-    ];
-
-    /* Local storage management */
-    const storage = {
-      get(key, fallback) {
-        try {
-          const val = localStorage.getItem(key);
-          return val ? JSON.parse(val) : fallback;
-        } catch(e) {
-          return fallback;
-        }
-      },
-      set(key, val) {
-        try {
-          localStorage.setItem(key, JSON.stringify(val));
-        } catch(e) {}
-      }
-    };
-
-    let customBookmarks = storage.get('kurohub_custom_sites', []);
-    let activeFilter = 'all';
-
-    // Toast helper
-    function showToast(msg) {
-      const toast = document.getElementById('toast');
-      const text = document.getElementById('toastMsg');
-      text.textContent = msg;
-      toast.classList.remove('hidden');
-      clearTimeout(window._toastTimeout);
-      window._toastTimeout = setTimeout(() => {
-        toast.classList.add('hidden');
-      }, 2500);
-    }
-
-    /* Multi-Search Routing and URL Generation */
-    const searchInput = document.getElementById('multiSearchInput');
-    const clearBtn = document.getElementById('clearSearchBtn');
-    const routerDeck = document.getElementById('routerDeck');
-    const targetName = document.getElementById('targetQueryName');
-
-    function updateRouterLinks(query) {
-      if (!query.trim()) {
-        routerDeck.classList.add('opacity-40');
-        targetName.textContent = '"Type a title above"';
-        clearBtn.classList.add('hidden');
-        return;
-      }
-      clearBtn.classList.remove('hidden');
-      routerDeck.classList.remove('opacity-40');
-      targetName.textContent = `"${query}"`;
-
-      const enc = encodeURIComponent(query);
-      const encPlus = encodeURIComponent(query).replace(/%20/g, '+');
-
-      // Streaming
-      document.getElementById('btn-cr').href = `https://www.crunchyroll.com/search?q=${enc}`;
-      document.getElementById('btn-netflix').href = `https://www.netflix.com/search?q=${enc}`;
-      document.getElementById('btn-muse').href = `https://www.youtube.com/results?search_query=${encodeURIComponent(query + ' Muse Asia episode')}`;
-      document.getElementById('btn-anione').href = `https://www.youtube.com/results?search_query=${encodeURIComponent(query + ' Ani-One Asia episode')}`;
-
-      // Tracking
-      // Deep link into user's KuroWatch instance:
-      document.getElementById('btn-kurowatch').href = `https://kuro2607.github.io/kuro.watch/?q=${enc}`;
-      document.getElementById('btn-mal').href = `https://myanimelist.net/anime.php?q=${enc}&cat=anime`;
-      document.getElementById('btn-anilist').href = `https://anilist.co/search/anime?search=${enc}`;
-      document.getElementById('btn-livechart').href = `https://www.livechart.me/search?q=${enc}`;
-
-      // Discussions & Lore
-      document.getElementById('btn-reddit').href = `https://www.reddit.com/r/anime/search/?q=${encPlus}&restrict_sr=1`;
-      document.getElementById('btn-kuromanga').href = `https://kuro2607.github.io/kuromanga/?q=${enc}`;
-      document.getElementById('btn-kuronews').href = `https://kuro2607.github.io/kuronews/?q=${enc}`;
-      document.getElementById('btn-manga').href = `https://www.mangaupdates.com/series.html?search=${encPlus}`;
-      document.getElementById('btn-animenews').href = `https://www.animenewsnetwork.com/encyclopedia/search/name?only=anime&q=${enc}`;
-      document.getElementById('btn-fandom').href = `https://www.google.com/search?q=${encodeURIComponent(query + ' anime wiki fandom')}`;
-
-      // Offline, Merch, OST
-      document.getElementById('btn-animethemes').href = `https://animethemes.moe/search?q=${enc}`;
-      document.getElementById('btn-cdjapan').href = `https://www.cdjapan.co.jp/searchuni?q=${encPlus}`;
-      document.getElementById('btn-croffline').href = `https://help.crunchyroll.com/hc/en-us/articles/360000676643-Offline-Viewing-FAQ`;
-      document.getElementById('btn-wallpapers').href = `https://wallhaven.cc/search?q=${encPlus}`;
-    }
-
-    searchInput.addEventListener('input', (e) => {
-      updateRouterLinks(e.target.value);
-    });
-
-    searchInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        handleQuickLaunch();
-      }
-    });
-
-    function clearSearch() {
-      searchInput.value = '';
-      updateRouterLinks('');
-      searchInput.focus();
-    }
-
-    function fillAndSearch(title) {
-      searchInput.value = title;
-      updateRouterLinks(title);
-      searchInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-
-    function handleQuickLaunch() {
-      const q = searchInput.value.trim();
-      if (!q) {
-        showToast('Please type an anime title first!');
-        searchInput.focus();
-        return;
-      }
-      // Opens Crunchyroll and KuroWatch concurrently
-      window.open(`https://kuro2607.github.io/kuro.watch/?q=${encodeURIComponent(q)}`, '_blank');
-      showToast(`Routed "${q}" to KuroWatch! Launch individual targets below.`);
-    }
-
-    function copyKuroUrl() {
-      const url = "https://kuro2607.github.io/kuro.watch/";
-      // Compatible copy without prompt
-      const temp = document.createElement('input');
-      temp.value = url;
-      document.body.appendChild(temp);
-      temp.select();
-      document.execCommand('copy');
-      document.body.removeChild(temp);
-
-      const feedback = document.getElementById('copyFeedback');
-      feedback.textContent = 'Copied!';
-      setTimeout(() => feedback.textContent = 'Copy Link', 2000);
-      showToast('KuroWatch link copied to clipboard!');
-    }
-
-    /* Bookmarks Directory Rendering & Filtering */
-    function renderBookmarks() {
-      const grid = document.getElementById('bookmarksGrid');
-      grid.innerHTML = '';
-
-      const allItems = [
-        ...DEFAULT_BOOKMARKS,
-        ...customBookmarks.map(c => ({ ...c, isCustom: true }))
-      ];
-
-      const filtered = allItems.filter(item => {
-        if (activeFilter === 'all') return true;
-        if (activeFilter === 'custom') return item.isCustom;
-        return item.cat === activeFilter;
-      });
-
-      if (!filtered.length) {
-        grid.innerHTML = `<div class="col-span-full py-8 text-center text-neutral-500 text-xs">No platforms found under this category. Click 'Add Custom Site' to add one!</div>`;
-        return;
-      }
-
-      filtered.forEach(item => {
-        const card = document.createElement('div');
-        card.className = "panel rounded-xl p-3 flex flex-col justify-between group hover:border-green-500/70 transition glow-hover relative";
-        
-        let badgeColor = 'bg-neutral-800 text-neutral-300';
-        if (item.badge === 'Ecosystem ★') badgeColor = 'bg-green-500 text-black font-bold';
-        else if (item.badge === 'Official' || item.badge === 'Free Legal') badgeColor = 'bg-emerald-950 text-emerald-400 border border-emerald-800';
-
-        card.innerHTML = `
-          <div>
-            <div class="flex items-center justify-between gap-1 mb-2">
-              <span class="text-[9px] uppercase font-bold px-1.5 py-0.5 rounded ${badgeColor}">${item.badge || 'Bookmark'}</span>
-              ${item.isCustom ? `
-                <button onclick="removeCustomSite('${item.id}', event)" title="Delete Bookmark" class="text-neutral-500 hover:text-red-400 transition p-0.5">
-                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
-                </button>
-              ` : ''}
-            </div>
-            <a href="${item.url}" target="_blank" rel="noopener noreferrer" class="font-bold text-sm text-neutral-100 hover:text-green-400 block transition">
-              ${item.name}
-            </a>
-            <p class="text-[11px] text-neutral-400 line-clamp-2 mt-1">${item.desc || ''}</p>
-          </div>
-
-          <div class="mt-3 pt-2 border-t border-[#1d2a1d] flex items-center justify-between">
-            <span class="text-[10px] text-neutral-500 truncate max-w-[100px]">${new URL(item.url).hostname.replace('www.', '')}</span>
-            <a href="${item.url}" target="_blank" rel="noopener noreferrer" class="text-green-500 hover:text-green-400 text-xs font-bold flex items-center gap-0.5">
-              <span>Open</span>
-              <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-            </a>
-          </div>
-        `;
-        grid.appendChild(card);
-      });
-    }
-
-    function filterBookmarks(cat) {
-      activeFilter = cat;
-      document.querySelectorAll('.cat-pill').forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.cat === cat);
-      });
-      renderBookmarks();
-    }
-
-    /* Custom Site Modal Handling */
-    function openAddModal() {
-      document.getElementById('addModal').classList.remove('hidden');
-      document.getElementById('siteName').focus();
-    }
-    function closeAddModal() {
-      document.getElementById('addModal').classList.add('hidden');
-      document.getElementById('customSiteForm').reset();
-    }
-    function saveCustomSite(e) {
-      e.preventDefault();
-      const name = document.getElementById('siteName').value.trim();
-      const url = document.getElementById('siteUrl').value.trim();
-      const cat = document.getElementById('siteCat').value;
-      const desc = document.getElementById('siteDesc').value.trim();
-
-      const newBookmark = {
-        id: 'cust_' + Date.now(),
-        name,
-        url,
-        cat,
-        desc: desc || 'Custom user bookmark',
-        badge: 'Custom'
-      };
-
-      customBookmarks.unshift(newBookmark);
-      storage.set('kurohub_custom_sites', customBookmarks);
-      renderBookmarks();
-      closeAddModal();
-      showToast(`Added ${name} to your launcher!`);
-    }
-
-    function removeCustomSite(id, e) {
-      e.stopPropagation();
-      customBookmarks = customBookmarks.filter(c => c.id !== id);
-      storage.set('kurohub_custom_sites', customBookmarks);
-      renderBookmarks();
-      showToast('Removed custom site');
-    }
-
-    /* Trending / Seasonal Anime with Jikan API */
-    async function loadTrending(filter = 'airing') {
-      const grid = document.getElementById('trendingGrid');
-      
-      // Update active tab buttons
-      ['airing', 'bypopularity', 'upcoming'].forEach(f => {
-        const btn = document.getElementById(`tab-${f}`);
-        if (btn) btn.classList.toggle('active', f === filter);
-      });
-
-      grid.innerHTML = Array(4).fill(0).map(() => `
-        <div class="panel rounded-2xl p-4 animate-pulse space-y-3">
-          <div class="aspect-[16/9] bg-neutral-900 rounded-xl"></div>
-          <div class="h-4 bg-neutral-800 rounded w-3/4"></div>
-          <div class="h-3 bg-neutral-800 rounded w-1/2"></div>
-        </div>
-      `).join('');
-
-      try {
-        const res = await fetch(`https://api.jikan.moe/v4/top/anime?filter=${filter}&limit=8&sfw=true`);
-        if (!res.ok) throw new Error('API Rate Limited');
-        const data = await res.json();
-        renderTrendingCards(data.data);
-      } catch (err) {
-        // High quality mock fallback in case of strict public API limits
-        console.warn('Using fallback seasonal feed data:', err.message);
-        renderTrendingCards(getFallbackAnime());
-      }
-    }
-
-    function renderTrendingCards(animeList) {
-      const grid = document.getElementById('trendingGrid');
-      grid.innerHTML = '';
-
-      animeList.slice(0, 8).forEach(anime => {
-        const title = anime.title_english || anime.title;
-        const img = anime.images?.jpg?.large_image_url || anime.images?.jpg?.image_url || 'https://placehold.co/400x600/0d130d/22c55e?text=Anime';
-        const score = anime.score || 'N/A';
-        const eps = anime.episodes ? `${anime.episodes} eps` : 'Ongoing';
-        const year = anime.year || (anime.aired?.prop?.from?.year) || '';
-
-        const card = document.createElement('div');
-        card.className = "panel rounded-2xl overflow-hidden flex flex-col justify-between group hover:border-green-500/60 transition glow-hover";
-        card.innerHTML = `
-          <div>
-            <div class="relative aspect-[16/10] overflow-hidden bg-black">
-              <img src="${img}" alt="${title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" loading="lazy">
-              <div class="absolute inset-0 bg-gradient-to-t from-[#0d130d] via-transparent to-transparent"></div>
-              <span class="absolute top-2 left-2 bg-black/80 backdrop-blur-md text-green-400 text-xs font-extrabold px-2 py-0.5 rounded-md border border-green-500/20">
-                ★ ${score}
-              </span>
-              <span class="absolute top-2 right-2 bg-black/80 backdrop-blur-md text-neutral-300 text-[10px] font-bold px-2 py-0.5 rounded-md">
-                ${eps}
-              </span>
-            </div>
-
-            <div class="p-3.5 space-y-1">
-              <h3 class="font-bold text-sm text-neutral-100 group-hover:text-green-400 transition line-clamp-2" title="${title}">
-                ${title}
-              </h3>
-              <p class="text-[11px] text-neutral-400">${anime.type || 'TV'} ${year ? '• ' + year : ''}</p>
-            </div>
-          </div>
-
-          <div class="p-3.5 pt-0">
-            <div class="grid grid-cols-2 gap-1.5 text-[11px]">
-              <button onclick="fillAndSearch('${title.replace(/'/g, "\\'")}')" class="py-1.5 px-2 rounded-lg bg-green-500/10 hover:bg-green-500 hover:text-black text-green-400 font-bold transition flex items-center justify-center gap-1">
-                <span>Multi-Route</span>
-                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-              </button>
-              <a href="https://kuro2607.github.io/kuro.watch/" target="_blank" class="py-1.5 px-2 rounded-lg bg-[#050805] hover:bg-[#152015] text-neutral-300 border border-[#1d2a1d] text-center transition font-medium">
-                Track on Kuro
-              </a>
-            </div>
-          </div>
-        `;
-        grid.appendChild(card);
-      });
-    }
-
-    function getFallbackAnime() {
-      return [
-        {
-          title: "Solo Leveling",
-          images: { jpg: { large_image_url: "https://cdn.myanimelist.net/images/anime/1170/124302.jpg" } },
-          score: 8.5,
-          episodes: 12,
-          type: "TV",
-          year: 2024
-        },
-        {
-          title: "Frieren: Beyond Journey's End",
-          images: { jpg: { large_image_url: "https://cdn.myanimelist.net/images/anime/1015/138075.jpg" } },
-          score: 9.3,
-          episodes: 28,
-          type: "TV",
-          year: 2023
-        },
-        {
-          title: "Jujutsu Kaisen Season 2",
-          images: { jpg: { large_image_url: "https://cdn.myanimelist.net/images/anime/1792/138022.jpg" } },
-          score: 8.8,
-          episodes: 23,
-          type: "TV",
-          year: 2023
-        },
-        {
-          title: "Black Clover",
-          images: { jpg: { large_image_url: "https://cdn.myanimelist.net/images/anime/2/88339.jpg" } },
-          score: 7.9,
-          episodes: 170,
-          type: "TV",
-          year: 2017
-        }
-      ];
-    }
-
-    /* Instant Batch Links Generator */
-    function generateBatchLinks() {
-      const val = document.getElementById('batchInput').value.trim();
-      const cont = document.getElementById('batchLinksContainer');
-      const box = document.getElementById('batchResults');
-      const header = document.getElementById('batchTitleHeader');
-
-      if (!val) {
-        showToast('Type a title to generate batch links');
-        return;
-      }
-
-      header.textContent = `Generated links for "${val}":`;
-      cont.innerHTML = '';
-      const enc = encodeURIComponent(val);
-
-      const targets = [
-        { name: 'KuroWatch', url: `https://kuro2607.github.io/kuro.watch/?q=${enc}`, color: 'bg-green-500 text-black font-bold' },
-        { name: 'KuroManga', url: `https://kuro2607.github.io/kuromanga/?q=${enc}`, color: 'bg-green-500 text-black font-bold' },
-        { name: 'KuroNews', url: `https://kuro2607.github.io/kuronews/?q=${enc}`, color: 'bg-green-500 text-black font-bold' },
-        { name: 'Crunchyroll', url: `https://www.crunchyroll.com/search?q=${enc}`, color: 'bg-[#192419] text-green-300' },
-        { name: 'Netflix', url: `https://www.netflix.com/search?q=${enc}`, color: 'bg-[#192419] text-green-300' },
-        { name: 'MyAnimeList', url: `https://myanimelist.net/anime.php?q=${enc}`, color: 'bg-[#192419] text-green-300' },
-        { name: 'AniList', url: `https://anilist.co/search/anime?search=${enc}`, color: 'bg-[#192419] text-green-300' },
-        { name: 'Reddit Disc.', url: `https://www.reddit.com/r/anime/search/?q=${enc}&restrict_sr=1`, color: 'bg-[#192419] text-green-300' },
-        { name: 'AnimeThemes', url: `https://animethemes.moe/search?q=${enc}`, color: 'bg-[#192419] text-green-300' }
-      ];
-
-      targets.forEach(t => {
-        const a = document.createElement('a');
-        a.href = t.url;
-        a.target = '_blank';
-        a.className = `px-3 py-1.5 rounded-lg text-xs hover:scale-105 transition ${t.color}`;
-        a.textContent = t.name + ' ↗';
-        cont.appendChild(a);
-      });
-
-      box.classList.remove('hidden');
-    }
-
-    /* Initialize on DOM Ready */
-    window.addEventListener('DOMContentLoaded', () => {
-      renderBookmarks();
-      loadTrending('airing');
-      updateRouterLinks('Solo Leveling'); // Pre-populate router with example
-    });
-  </script>
-</body>
-</html>
+/* views */
+function show(v){
+  ['discover','schedule','mylist','player','network'].forEach(x=>$('#v-'+x).classList.toggle('hidden',x!==v));
+  document.querySelectorAll('[data-v]').forEach(b=>b.classList.toggle('on',b.dataset.v===v));
+  if(v==='schedule'&&!$('#days').children.length)initSchedule();
+  if(v==='mylist')
